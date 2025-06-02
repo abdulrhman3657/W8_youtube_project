@@ -41,7 +41,7 @@ function VideoList() {
     <div className="flex gap-3 flex-wrap justify-center items-center">
       {videos.map((video, index) => (
         <div key={index}>
-          <Link to={`./video/${video.id}`}>
+          <Link to={`/video/${video.id}`}>
             <VideoCard
             title={video.snippet.title}
             thumbnail={video.snippet.thumbnails.maxres.url}

@@ -10,7 +10,7 @@ function Navbar() {
     <div>
       <nav className="bg-[#0f0f0f] text-white p-3">
         <ul className=" hidden lg:flex items-center justify-between gap-3">
-          <li className="flex gap-4">
+          <li className="flex gap-4 items-center">
             <RxHamburgerMenu className="text-white text-3xl" />
             <Link to={"/"}>
               <img
