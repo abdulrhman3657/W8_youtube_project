@@ -4,8 +4,8 @@ import { Link, useParams } from "react-router";
 import { BiLike, BiDislike } from "react-icons/bi";
 import { RiShareForwardLine } from "react-icons/ri";
 import { IoIosMore } from "react-icons/io";
-import VideoCard from "./VideoCard";
 import VideoCardRecommenattion from "./VideoCardRecommenattion";
+import { Temporal } from "@js-temporal/polyfill";
 
 function VideoDetails() {
   const [video, setVideo] = useState([]);
@@ -175,7 +175,7 @@ function VideoDetails() {
             <VideoCardRecommenattion
             title={video.snippet.title}
             thumbnail={video.snippet.thumbnails.maxres.url}
-            duration={video.contentDetails.duration}
+            duration={Temporal.Duration.from(video.contentDetails.duration)}
             channelTitle={video.snippet.channelTitle}
             viewCount={video.statistics.viewCount}
             date={video.snippet.publishedAt}

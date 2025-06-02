@@ -2,12 +2,18 @@ import VideoCard from "./VideoCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { Temporal } from "@js-temporal/polyfill";
 
 function VideoList() {
   const KEY = "AIzaSyBrcwQMWJEcEzjY8yeW3ExNYeBnYcYcahA";
 
   const [videos, setVideos] = useState([]);
   const [channelThumbnail, setChannelThumbnail] = useState([]);
+
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   // get videos data
   useEffect(() => {
@@ -16,8 +22,10 @@ function VideoList() {
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=US&maxResults=17&key=${KEY}`
       )
       .then((res) => {
-
-        console.log(res.data.items[0])
+        const duration = Temporal.Duration.from(
+          res.data.items[0].contentDetails.duration
+        );
+        const date = res.data.items[0].snippet.publishedAt;
 
         res.data.items.map((video) => {
           // get channel channel thumbnail
@@ -43,14 +51,14 @@ function VideoList() {
         <div key={index}>
           <Link to={`/video/${video.id}`}>
             <VideoCard
-            title={video.snippet.title}
-            thumbnail={video.snippet.thumbnails.maxres.url}
-            duration={video.contentDetails.duration}
-            channelTitle={video.snippet.channelTitle}
-            viewCount={video.statistics.viewCount}
-            date={video.snippet.publishedAt}
-            channelThumbnail={channelThumbnail[index]}
-          />
+              title={video.snippet.title}
+              thumbnail={video.snippet.thumbnails.maxres.url}
+              duration={Temporal.Duration.from(video.contentDetails.duration)}
+              channelTitle={video.snippet.channelTitle}
+              viewCount={video.statistics.viewCount}
+              date={formatDate(video.snippet.publishedAt)}
+              channelThumbnail={channelThumbnail[index]}
+            />
           </Link>
         </div>
       ))}
