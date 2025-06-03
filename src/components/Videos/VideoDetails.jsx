@@ -6,10 +6,10 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { IoIosMore } from "react-icons/io";
 import VideoCardRecommenattion from "./VideoCardRecommenattion";
 import { Temporal } from "@js-temporal/polyfill";
+import { MdOutlineSort } from "react-icons/md";
 
 function VideoDetails() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const formatDate = (dateString) => {
     const currentDate = `${
@@ -160,8 +160,59 @@ function VideoDetails() {
         </div>
 
         {/* comments */}
-        <div>
-          <h1></h1>
+        <div className="p-3">
+          <div className="">
+            <div className="flex gap-2 items-center">
+              <h1 className="text-lg font-bold">0 Comments</h1>
+              <MdOutlineSort className="text-2xl" />
+              <h1>Sort by</h1>
+            </div>
+            <input
+              type="text"
+              className="border-b w-full m-2"
+              placeholder="Add a comment"
+            />
+            <div className="flex flex-col gap-4 p-2">
+              <div className="flex items-center">
+                <img
+                  className="rounded-full w-10 h-10 m-2"
+                  src="https://images.pexels.com/photos/28712682/pexels-photo-28712682/free-photo-of-stunning-sunset-over-catalca-silhouetted-trees.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                  alt=""
+                />
+                <div className="flex flex-col gap-1">
+                  <h1>
+                    @jesuasdsdy374{" "}
+                    <span className="text-gray-400">4 days ago</span>
+                  </h1>
+                  <p>200k subs congratulations 🎉🎉👏</p>
+                  <div className="flex items-center gap-2">
+                    <BiLike className="text-2xl" /> <p>2</p>{" "}
+                    <BiDislike className="text-2xl" />{" "}
+                    <p className="font-bold">Reply</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <img
+                  className="rounded-full w-10 m-2"
+                  src="https://yt3.ggpht.com/ytc/AIdro_nSQaefEePLeZ0NHONhoQobCEkO_-ft5nHRcbVHrOY=s88-c-k-c0x00ffffff-no-rj"
+                  alt=""
+                />
+                <div className="flex flex-col gap-1">
+                  <h1>
+                    @a1341{" "}
+                    <span className="text-gray-400">10 days ago</span>
+                  </h1>
+                  <p>hi</p>
+                  <div className="flex items-center gap-2">
+                    <BiLike className="text-2xl" /> <p>1</p>{" "}
+                    <BiDislike className="text-2xl" />{" "}
+                    <p className="font-bold">Reply</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -189,10 +240,12 @@ function VideoDetails() {
         <div className="">
           {videos.map((video, index) => (
             <div key={index}>
-              <button onClick={() => {
-                navigate(`/video/${video.id}`)
-                window.location.reload()
-              }}>
+              <button
+                onClick={() => {
+                  navigate(`/video/${video.id}`);
+                  window.location.reload();
+                }}
+              >
                 <VideoCardRecommenattion
                   title={video.snippet.title}
                   thumbnail={video.snippet.thumbnails.high.url}
