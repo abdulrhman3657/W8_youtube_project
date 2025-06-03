@@ -49,7 +49,7 @@ function VideoDetails() {
         setPublishDate(res.data.items[0].snippet.publishedAt);
         setDescription(res.data.items[0].snippet.description);
 
-        console.log(res.data.items[0]);
+        // console.log(res.data.items[0]);
 
         axios
           .get(

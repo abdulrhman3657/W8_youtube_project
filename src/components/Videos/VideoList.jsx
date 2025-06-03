@@ -11,8 +11,17 @@ function VideoList() {
   const [channelThumbnail, setChannelThumbnail] = useState([]);
 
   const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    const currentDate = `${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getFullYear()}`; // 
+
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
+    const str1 = new Date(dateString).toLocaleDateString(undefined, options);
+
+    const date1 = new Date(str1);
+    const date2 = new Date(currentDate);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays == 1 ? `${diffDays} day ago` : `${diffDays} days ago`;
   };
 
   // get videos data
@@ -22,13 +31,15 @@ function VideoList() {
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=US&maxResults=17&key=${KEY}`
       )
       .then((res) => {
-
         // console.log(res.data.items)
 
         res.data.items.map((video) => {
+          // console.log(video.snippet.thumbnails.high.url)
 
-          console.log(video.snippet.thumbnails.high.url)
+          const vidDate = video.snippet.publishedAt;
 
+
+          console.log(formatDate(vidDate))
 
           // get channel channel thumbnail
           axios
@@ -36,10 +47,9 @@ function VideoList() {
               `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${video.snippet.channelId}&fields=items%2Fsnippet%2Fthumbnails&key=${KEY}`
             )
             .then((res) => {
-
               setChannelThumbnail((imgurl) => [
                 ...imgurl,
-                res.data.items[0].snippet.thumbnails.high.url,
+                res.data.items[0].snippet.thumbnails.default.url,
               ]);
             });
         });
