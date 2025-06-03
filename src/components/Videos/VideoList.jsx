@@ -23,9 +23,13 @@ function VideoList() {
       )
       .then((res) => {
 
-        console.log(res.data.items)
+        // console.log(res.data.items)
 
         res.data.items.map((video) => {
+
+          console.log(video.snippet.thumbnails.high.url)
+
+
           // get channel channel thumbnail
           axios
             .get(
@@ -51,7 +55,7 @@ function VideoList() {
           <Link to={`/video/${video.id}`}>
             <VideoCard
               title={video.snippet.title}
-              thumbnail={video.snippet.thumbnails.high.url}
+              thumbnail={video.snippet.thumbnails.high?.url}
               duration={Temporal.Duration.from(video.contentDetails.duration)}
               channelTitle={video.snippet.channelTitle}
               viewCount={video.statistics.viewCount}

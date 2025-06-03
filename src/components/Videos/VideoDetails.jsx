@@ -174,7 +174,7 @@ function VideoDetails() {
           <Link to={`/video/${video.id}`}>
             <VideoCardRecommenattion
             title={video.snippet.title}
-            thumbnail={video.snippet.thumbnails.maxres.url}
+            thumbnail={video.snippet.thumbnails.high.url}
             duration={Temporal.Duration.from(video.contentDetails.duration)}
             channelTitle={video.snippet.channelTitle}
             viewCount={video.statistics.viewCount}
