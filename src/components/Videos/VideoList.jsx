@@ -11,16 +11,13 @@ function VideoList() {
   const [channelThumbnail, setChannelThumbnail] = useState([]);
 
   const formatDate = (dateString) => {
-    const currentDate = `${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getFullYear()}`; // 
-
+    const currentDate = `${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getFullYear()}`;
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     const str1 = new Date(dateString).toLocaleDateString(undefined, options);
-
     const date1 = new Date(str1);
     const date2 = new Date(currentDate);
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
     return diffDays == 1 ? `${diffDays} day ago` : `${diffDays} days ago`;
   };
 

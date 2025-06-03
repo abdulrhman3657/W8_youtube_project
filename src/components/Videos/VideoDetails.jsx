@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { BiLike, BiDislike } from "react-icons/bi";
 import { RiShareForwardLine } from "react-icons/ri";
 import { IoIosMore } from "react-icons/io";
@@ -8,6 +8,22 @@ import VideoCardRecommenattion from "./VideoCardRecommenattion";
 import { Temporal } from "@js-temporal/polyfill";
 
 function VideoDetails() {
+
+  const navigate = useNavigate()
+
+  const formatDate = (dateString) => {
+    const currentDate = `${
+      new Date().getMonth() + 1
+    }/${new Date().getDate()}/${new Date().getFullYear()}`;
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
+    const str1 = new Date(dateString).toLocaleDateString(undefined, options);
+    const date1 = new Date(str1);
+    const date2 = new Date(currentDate);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays == 1 ? `${diffDays} day ago` : `${diffDays} days ago`;
+  };
+
   const [video, setVideo] = useState([]);
 
   const [channelThumbnail, setChannelThumbnail] = useState("");
@@ -19,7 +35,7 @@ function VideoDetails() {
   const [publishDate, setPublishDate] = useState("");
   const [description, setDescription] = useState("");
 
-  const [videos, setVideos] = useState([])
+  const [videos, setVideos] = useState([]);
 
   const KEY = "AIzaSyBrcwQMWJEcEzjY8yeW3ExNYeBnYcYcahA";
 
@@ -57,16 +73,18 @@ function VideoDetails() {
           )
           .then((res) => {
             setSubscriberCount(res.data.items[0].statistics.subscriberCount);
-            setChannelThumbnail(res.data.items[0].snippet.thumbnails.high.url);
+            setChannelThumbnail(
+              res.data.items[0].snippet.thumbnails.default.url
+            );
           });
       });
   }, []);
 
   return (
-    <div className="bg-[#0f0f0f] text-white flex">
-      <div className="flex flex-col p-5 gap-3 w-full lg:w-2/3">
+    <div className="bg-[#0f0f0f] text-white flex flex-col lg:flex-row pt-20">
+      <div className="flex flex-col p-2 gap-3 w-full lg:w-full">
         <iframe
-          className="h-100 rounded-3xl"
+          className="h-100 lg:h-150 rounded-3xl"
           src={`https://www.youtube.com/embed/${video.id}`}
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -131,7 +149,7 @@ function VideoDetails() {
           {/* date */}
           <div>
             <h1>
-              {ViewCount} views {publishDate}
+              {ViewCount} views {formatDate(publishDate)}
             </h1>
           </div>
 
@@ -148,7 +166,7 @@ function VideoDetails() {
       </div>
 
       {/* right side */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 p-2 lg:w-2/5">
         <div className="flex gap-3">
           <div>
             <p
@@ -168,22 +186,27 @@ function VideoDetails() {
           </div>
         </div>
 
-        <div>
-      {videos.map((video, index) => (
-        <div key={index}>
-          <Link to={`/video/${video.id}`}>
-            <VideoCardRecommenattion
-            title={video.snippet.title}
-            thumbnail={video.snippet.thumbnails.high.url}
-            duration={Temporal.Duration.from(video.contentDetails.duration)}
-            channelTitle={video.snippet.channelTitle}
-            viewCount={video.statistics.viewCount}
-            date={video.snippet.publishedAt}
-            channelThumbnail={channelThumbnail[index]}
-          />
-          </Link>
-        </div>
-      ))}
+        <div className="">
+          {videos.map((video, index) => (
+            <div key={index}>
+              <button onClick={() => {
+                navigate(`/video/${video.id}`)
+                window.location.reload()
+              }}>
+                <VideoCardRecommenattion
+                  title={video.snippet.title}
+                  thumbnail={video.snippet.thumbnails.high.url}
+                  duration={Temporal.Duration.from(
+                    video.contentDetails.duration
+                  )}
+                  channelTitle={video.snippet.channelTitle}
+                  viewCount={video.statistics.viewCount}
+                  date={video.snippet.publishedAt}
+                  channelThumbnail={channelThumbnail[index]}
+                />
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>

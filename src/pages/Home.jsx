@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className='bg-[#0f0f0f] text-white flex justify-betweeen gap-1'>
       <Sidebar/>
-        <div className='m-3 p-3 flex flex-col items-center gap-2'>
+        <div className='lg:m-3 p-3 flex flex-col items-center gap-2'>
             <HomeTags/>
             <VideoList/>
         </div>

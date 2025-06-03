@@ -4,8 +4,8 @@ function HomeTags() {
   return (
     <div>
       <div>
-        <ul className="flex gap-3 pt-18">
-          <li className="font-bold w-13 py-1 text-center bg-white text-black rounded-xl">
+        <ul className="flex flex-wrap gap-3 pt-18">
+          <li className="font-bold w-13 py-1 text-center flex-wrap bg-white text-black rounded-xl">
             All
           </li>
           <li

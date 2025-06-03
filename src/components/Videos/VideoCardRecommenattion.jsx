@@ -4,12 +4,18 @@ function VideoCardRecommenattion(data) {
 
 
   const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    const currentDate = `${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getFullYear()}`;
+    const options = { year: "numeric", month: "numeric", day: "numeric" };
+    const str1 = new Date(dateString).toLocaleDateString(undefined, options);
+    const date1 = new Date(str1);
+    const date2 = new Date(currentDate);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays == 1 ? `${diffDays} day ago` : `${diffDays} days ago`;
   };
 
   return (
-    <div className=" w-100 h-30 flex rounded-2xl  p-2 hover:bg-blue-950/40">
+    <div className="w-full h-45 flex rounded-2xl  p-2 hover:bg-blue-950/40">
       <div className="relative">
         <img
           className="rounded-2xl w-full h-full"
@@ -21,9 +27,9 @@ function VideoCardRecommenattion(data) {
         </span>
       </div>
       <div className="p-2 flex items-center justify-between gap-3">
-        <div className="flex flex-col ">
-          <h1>{data.title}</h1>
-          <span>{data.channelTitle}</span>
+        <div className="flex flex-col gap-1">
+          <h1 className="w-50 overflow-clip">{data.title}</h1>
+          <span className="w-50 overflow-clip">{data.channelTitle}</span>
           <span>
             <span>{data.viewCount}</span>
             <span> . </span>
