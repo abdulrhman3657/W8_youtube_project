@@ -6,7 +6,7 @@ function Sidebar() {
 
   return (
     <div>
-      <div className="hidden lg:block p-2 pt-25 h-screen fixed z-20">
+      <div className="hidden lg:block p-1 pt-25 h-screen fixed z-20">
         <ul className="flex flex-col items-center gap-5">
           <li className="flex flex-col items-end justify-center">
             <svg

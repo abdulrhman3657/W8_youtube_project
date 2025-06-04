@@ -56,7 +56,7 @@ function VideoList() {
   }, []);
 
   return (
-    <div className="flex gap-3 flex-wrap justify-center items-center">
+    <div className="flex gap-1 flex-wrap justify-center items-center">
       {videos.map((video, index) => (
         <div key={index}>
           <Link to={`/video/${video.id}`}>
