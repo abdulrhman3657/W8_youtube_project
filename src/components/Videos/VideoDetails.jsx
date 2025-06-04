@@ -81,7 +81,7 @@ function VideoDetails() {
   }, []);
 
   return (
-    <div className="bg-[#0f0f0f] text-white flex flex-col lg:flex-row pt-20">
+    <div className="bg-[#0f0f0f] text-white flex flex-col xl:flex-row pt-20">
       <div className="flex flex-col p-2 gap-3 w-full lg:w-full">
         <iframe
           className="h-100 lg:h-150 rounded-3xl"
@@ -217,7 +217,7 @@ function VideoDetails() {
       </div>
 
       {/* right side */}
-      <div className="flex flex-col gap-3 p-2 lg:w-2/5">
+      <div className="flex flex-col gap-3 p-2  xl:w-2/5">
         <div className="flex gap-3">
           <div>
             <p
